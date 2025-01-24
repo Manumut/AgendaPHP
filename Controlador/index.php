@@ -25,7 +25,7 @@
 
 
 
-
+ 
     if(isset($_REQUEST["action"])) {  //Si se ha pulsado una accion
         $action = $_REQUEST["action"];  //Guardamos la accion
         $action();  //Ejecutamos la accion
