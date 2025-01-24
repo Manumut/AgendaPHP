@@ -1,7 +1,7 @@
 <?php
     function inicio(){ //Login
         if(isset($_POST["enviar"])){  //Si se ha pulsado el boton
-            require_once('../Modelo/modelo.php'); //Incluimos el modelo
+            require_once('../Modelo/coockie&Session.php'); //Incluimos el modelo
             require_once('../Modelo/class.db.php');  //Incluimos la base de datos
 
             $db = new db(); //Creamos el objeto

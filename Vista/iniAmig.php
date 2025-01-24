@@ -17,19 +17,28 @@ require_once('cabecera.html');
     </header>
 
     <section class="cont-amig">
-        <div class="formuAmig">
-            <h2>Amigos</h2>
-            <p>Entra en tu agenda personal</p>
-            <form action="../Controlador/index.php?action=amig" method="post">
-                <input type="submit" value="Entrar" name="enviar">
-            </form>
-            <div>
-            <a href="#">Inserta Amigos</a>
-            <a href="#">Buscar Amigos</a>
-            </div>
-            
+    <div class="formuAmig">
+        <h2>Amigos</h2>
+        <div class="submenu">
+            <a href="../Vista/insertar_amigos.php">Insertar Amigos</a>
+            <a href="../Vista/buscar_amigos.php">Buscar Amigos</a>
         </div>
-    </section>
+
+        <h3>Listado de Amigos</h3>
+        <table action="../Controlador/index.php?action=inicio">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+</section>
 
 
 
@@ -40,3 +49,6 @@ require_once('cabecera.html');
 <?php
     require_once('footer.html');
 ?>
+
+
+
