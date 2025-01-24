@@ -16,7 +16,7 @@
 
                 set_session('usu', $_POST["nom"]);  //Creamos la sesion
                 $nUsu=$_POST["nom"];  //Guardamos el nombre en una variable
-                require_once('bienvenida.php');  //Incluimos la bienvenida
+                require_once('../Vista/iniAmig.php');  //Incluimos la bienvenida
             }else{
                 require_once('../Vista/login.php');  //Incluimos el login
             }

@@ -9,8 +9,8 @@ require_once('cabecera.html');
         </nav>
     </header>
 
-    <div class="container">
-        <div class="form-box">
+    <section class="cont-ini">
+        <div class="form-ini">
             <h2>Inicia Sesión</h2>
             <form action="../Controlador/index.php?action=inicio" method="post">
         <label for="nom">Nombre</label>
@@ -25,7 +25,7 @@ require_once('cabecera.html');
         <input type="submit" value="Enviar" name="enviar">
     </form>
         </div>
-    </div>
+    </section>
 
     
     
