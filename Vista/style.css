@@ -61,12 +61,13 @@ header nav a:hover {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
+    text-align: center;
     color: #333;
 }
 
 .form-box input[type="text"],
 .form-box input[type="password"] {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
