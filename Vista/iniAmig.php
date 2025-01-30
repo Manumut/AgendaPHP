@@ -1,12 +1,12 @@
 <?php
 
-require_once('../Modelo/amigos.php');
+require_once('../Modelo/class.amigos.php');
 
 
 
 
 // Instanciar la clase Amig
-$amigos = new Amig();
+$amigos = new Amigo();
 ?>
 
 <!DOCTYPE html>

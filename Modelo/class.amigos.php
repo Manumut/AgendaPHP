@@ -63,7 +63,7 @@
 //     }
 // }
 
-
+require_once('../Modelo/class.db.php');
 class Amigo {
     private $db;
 
