@@ -1,33 +1,46 @@
 <?php
-    function inicio(){ //Login
-        if(isset($_POST["enviar"])){  //Si se ha pulsado el boton
-            require_once('../Modelo/coockie&Session.php'); //Incluimos el modelo
-            require_once('../Modelo/class.db.php');  //Incluimos la base de datos
+    // function inicio(){ //Login
+    //     if(isset($_POST["enviar"])){  //Si se ha pulsado el boton
+    //         require_once('../Modelo/coockie&Session.php'); //Incluimos el modelo
+    //         require_once('../Modelo/class.db.php');  //Incluimos la base de datos
 
-            $db = new db(); //Creamos el objeto
+    //         $db = new db(); //Creamos el objeto
 
-            if(!isset($_POST["rec"])){  //Si no se ha pulsado el checkbox
-                unset_cookie("usuario"); //Borramos el cookie
-            }
-            
-            if($db->compCrede($_POST["nom"], $_POST["psw"])) { //Comprobamos las credenciales
-                if(isset($_POST["rec"])) //Si se ha pulsado el checkbox
-                    set_cookie("usuario", $_POST["nom"]); //Creamos el cookie
+    //         if(!isset($_POST["rec"])){  //Si no se ha pulsado el checkbox
+    //             unset_cookie("usuario"); //Borramos el cookie
+    //         }
 
-                set_session('usu', $_POST["nom"]);  //Creamos la sesion
-                $nUsu=$_POST["nom"];  //Guardamos el nombre en una variable
-                require_once('../Vista/iniAmig.php');  //Incluimos la bienvenida
-            }else{
-                require_once('../Vista/login.php');  //Incluimos el login
-            }
+    //         if($db->compCrede($_POST["nom"], $_POST["psw"])) { //Comprobamos las credenciales
+    //             if(isset($_POST["rec"])) //Si se ha pulsado el checkbox
+    //                 set_cookie("usuario", $_POST["nom"]); //Creamos el cookie
+
+    //             set_session('usu', $_POST["nom"]);  //Creamos la sesion
+    //             $nUsu=$_POST["nom"];  //Guardamos el nombre en una variable
+    //             require_once('../Vista/iniAmig.php');  //Incluimos la bienvenida
+    //         }else{
+    //             require_once('../Vista/login.php');  //Incluimos el login
+    //         }
+    //     }
+    // }
+
+    require_once('../Modelo/class.usuarios.php');
+session_start();
+
+if (isset($_POST["action"])) {
+    $action = $_POST["action"];
+    if ($action == "login") {
+        $usuario = new Usuario();
+        if ($usuario->login($_POST["nombre"], $_POST["password"])) {
+            header("Location: ../Vista/iniAmig.php");
+        } else {
+            echo "Usuario o contraseña incorrectos";
         }
     }
-
+}
 
 
  
-    if(isset($_REQUEST["action"])) {  //Si se ha pulsado una accion
-        $action = $_REQUEST["action"];  //Guardamos la accion
-        $action();  //Ejecutamos la accion
-    }
-?>
+    // if(isset($_REQUEST["action"])) {  //Si se ha pulsado una accion
+    //     $action = $_REQUEST["action"];  //Guardamos la accion
+    //     $action();  //Ejecutamos la accion
+    // }

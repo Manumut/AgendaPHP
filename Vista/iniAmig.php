@@ -1,6 +1,6 @@
 <?php
 
-require_once('../Modelo/class.amigos.php');
+require_once('../Modelo/amigos.php');
 
 
 
