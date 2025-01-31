@@ -1,7 +1,7 @@
 <?php
 require_once('cabecera.html');
 ?>
-<header>
+    <header>
         <h1>AGENDA PERSONAL</h1>
         <nav>
             <a href="#">Home</a>
@@ -9,6 +9,7 @@ require_once('cabecera.html');
         </nav>
     </header>
 
+    
     <section class="cont-ini">
         <div class="form-ini">
             <h2>Inicia Sesión</h2>
