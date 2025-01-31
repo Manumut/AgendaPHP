@@ -7,7 +7,7 @@ $amigos = new Amigo();
 require_once('../Vista/cabecera.html');
 ?>
 
-    <header>
+    <header id="amigos">
         <h1>AGENDA PERSONAL</h1>
         <nav>
             <a href="../Vista/iniAmig.php">Amigos</a>
@@ -22,11 +22,9 @@ require_once('../Vista/cabecera.html');
     </header>
 
     <main>
-    <h1>Mis Amigos</h1>
-    <?php
-    // Mostrar tabla de amigos
-    $amigos->mostrarTablaAmigos($_SESSION['usuario_id']);
-    ?>
+    <h2>Lista de Amigos</h2>
+    <?php $amigos->mostrarTablaAmigos($_SESSION['usuario']); ?>
+
     </main>
 
 <?php
