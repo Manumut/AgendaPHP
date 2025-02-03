@@ -74,7 +74,7 @@ class Amigo {
 
     // Obtener amigos del usuario
     public function obtenerAmigos($usuario_id) {
-        $query = "SELECT id, nombre, DATE_FORMAT(fecha_nacimiento, '%d/%m/%Y') AS fecha_nacimiento FROM amigos WHERE usuario_id = ?";
+        $query = "SELECT id_am, nombre, DATE_FORMAT(nacimiento, '%d/%m/%Y') AS nacimiento FROM amigos WHERE id_usuario = ?";
         return $this->db->query($query, [$usuario_id])->fetch_all(MYSQLI_ASSOC);
     }
 

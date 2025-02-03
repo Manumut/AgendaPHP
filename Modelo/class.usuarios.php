@@ -1,4 +1,6 @@
 <?php
+    require_once('class.db.php');
+
     // require_once('class.db.php');
 
     // class usu{
@@ -38,7 +40,7 @@
         }
     
         public function login($nombre, $password) {
-            $stmt = $this->db->prepare("SELECT id FROM usuarios WHERE nombre = ? AND password = ?");
+            $stmt = $this->db->prepare("SELECT id_usu FROM usuarios WHERE nombre = ? AND password = ?");
             $stmt->bind_param("ss", $nombre, $password);
             $stmt->execute();
             $stmt->store_result();
