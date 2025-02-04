@@ -230,69 +230,62 @@ input[type="submit"]:hover {
     transform: translateX(5px);
 }
 
-/* Submenu styles 
-.submenu {
+/* BUSCADOR AMIGOS */
+
+#busAmigo{
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin: auto;
 }
 
-.submenu a {
-    text-decoration: none;
-    color: #4CAF50;
-    font-weight: bold;
-    margin: 0 10px;
-    padding: 10px 15px;
-    border: 1px solid #4CAF50;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.submenu a:hover {
-    background-color: #4CAF50;
-    color: white;
-}
-
-/* Friends table styles 
-.friends-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+.formu-buscaAmig {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
+    width: 300px;
+    
 }
 
-.friends-table thead {
-    background-color: #4CAF50;
-    color: white;
+h1 {
+    font-size: 24px;
+    color: #44c7d4;
+    margin-bottom: 15px;
 }
 
-.friends-table th, .friends-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
+/* Campos del formulario */
+#buscar-amigo {
+    display: flex;
+    flex-direction: column;
 }
 
-.friends-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+#buscar-amigo label {
+    font-weight: bold;
+    margin-top: 10px;
 }
 
-.friends-table tr:hover {
-    background-color: #f1f1f1;
+#buscar-amigo input {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
-/* Modify button styles 
-.btn-modify {
-    padding: 8px 12px;
-    background-color: #4CAF50;
+/* Estilos del botón */
+#buscar-amigo button {
+    background: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 16px;
+    margin-top: 15px;
 }
 
-.btn-modify:hover {
-    background-color: #45a049;
-    transform: scale(1.1);
+#buscar-amigo button:hover {
+    background: #45a049;
 }
-*/
+
