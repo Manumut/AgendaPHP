@@ -24,7 +24,7 @@
     }
 
      function procesar_amigo(){
-        
+
         // Verificar si el usuario está logueado
         if (!isset($_SESSION['usuario_id'])) {
             header('Location: login.php');
@@ -61,6 +61,34 @@
         }
 
     }
+
+    function buscar_amigo(){
+        require_once('../Modelo/class.amigos.php');
+    session_start();
+
+    // Verificar si el usuario está logueado
+    if (!isset($_SESSION['usuario_id'])) {
+        header('Location: ../Vista/login.php');
+        exit();
+    }
+
+    // Instanciar la clase Amigo
+    $amigo = new Amigo();
+    $resultados = [];
+
+    // Si se envió el formulario, procesar la búsqueda
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $busqueda = $_POST['busqueda'];
+        $resultados = $amigo->buscarAmigos($_SESSION['usuario_id'], $busqueda);
+    }
+
+    // Incluir la vista
+    require_once('../Vista/buscAmigo.php');
+    
+
+
+    }
+
 
     require_once('../Modelo/class.usuarios.php');
 session_start();

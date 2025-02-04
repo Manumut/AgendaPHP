@@ -232,13 +232,13 @@ input[type="submit"]:hover {
 
 /* BUSCADOR AMIGOS */
 
-#busAmigo{
+#masAmigos{
     display: flex;
     justify-content: center;
     margin: auto;
 }
 
-.formu-buscaAmig {
+.formu-masAmigos {
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -255,17 +255,17 @@ h1 {
 }
 
 /* Campos del formulario */
-#buscar-amigo {
+#aniadir-amigo {
     display: flex;
     flex-direction: column;
 }
 
-#buscar-amigo label {
+#baniadir-amigo label {
     font-weight: bold;
     margin-top: 10px;
 }
 
-#buscar-amigo input {
+#aniadir-amigo input {
     padding: 8px;
     margin-top: 5px;
     border: 1px solid #ccc;
@@ -274,7 +274,7 @@ h1 {
 }
 
 /* Estilos del botón */
-#buscar-amigo button {
+#aniadir-amigo button {
     background: #4CAF50;
     color: white;
     border: none;
@@ -285,7 +285,76 @@ h1 {
     margin-top: 15px;
 }
 
-#buscar-amigo button:hover {
+#aniadir-amigo button:hover {
     background: #45a049;
 }
 
+/* BUSCAR AMIGO */
+#buscAm{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.form-buscAm {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 350px;
+    margin-top: 20px;
+}
+
+.form-buscAm h1 {
+    font-size: 24px;
+    color: #44c7d4;
+    margin-bottom: 15px;
+}
+
+.form-buscAm form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilos del campo de entrada */
+.form-buscAm input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Botón de búsqueda */
+.form-buscAm button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-buscAm button:hover {
+    background: #45a049;
+}
+
+/* Estilos de la tabla */
+.form-buscAm table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+.form-buscAm th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.form-buscAm th {
+    background: #44c7d4;
+    color: white;
+}
