@@ -14,12 +14,11 @@ require_once("../Vista/cabecera.html");
             <a href="../Vista/buscAmigo.php">Buscar Amigos</a>
         </div>
     </header>
-    <main id="buscadores">
-    
-        <div class="form-busc">
-            <h1>Buscar Amigos</h1>
+    <main id="buscAm">
+        <div class="form-buscAm">
+            <h1>Buscar Juegos</h1>
             <form action="../Controlador/index.php" method="POST">
-                <label for="busqueda">Nombre o Apellidos</label>
+                <label for="busqueda">Titulo del juego / Plataforma</label>
                 <input type="text" id="busqueda" name="busqueda" required>
                 <button type="submit">Buscar</button>
             </form>
@@ -34,9 +33,9 @@ require_once("../Vista/cabecera.html");
                     </tr>
                     <?php foreach ($resultados as $amigo): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($amigo['nombre']); ?></td>
-                            <td><?php echo htmlspecialchars($amigo['apellidos']); ?></td>
-                            <td><?php echo htmlspecialchars($amigo['fecha_nacimiento']); ?></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

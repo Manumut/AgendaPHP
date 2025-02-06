@@ -18,7 +18,7 @@ require_once("../Vista/cabecera.html");
 
     <main id=masAmigos>
         <div class="formu-masAmigos">
-            <h1>NUEVO AMIGO</h1>
+            <h1>MODIFICAR AMIGO</h1>
             <form id="aniadir-amigo" action="../Controlador/index.php" method="POST">
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" required>
