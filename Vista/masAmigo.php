@@ -2,7 +2,7 @@
 require_once("../Vista/cabecera.html");
 ?>
 
-    <header id="amigos">
+    <header>
         <h1>AGENDA PERSONAL</h1>
         <nav>
             <a href="../Vista/iniAmig.php">Amigos</a>

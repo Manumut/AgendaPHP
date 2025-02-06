@@ -3,7 +3,7 @@ require_once("../Vista/cabecera.html");
 ?>
 
 
-    <header id="amigos">
+    <header>
         <h1>AGENDA PERSONAL</h1>
         <nav>
             <a href="../Vista/iniAmig.php">Amigos</a>
@@ -12,8 +12,8 @@ require_once("../Vista/cabecera.html");
             <a href="../Vista/login.php">Salir</a>
         </nav>
         <div>
-            <a href="../Vista/masAmigo.php">Insertar Amigos</a>
-            <a href="../Vista/buscAmigo.php">Buscar Amigos</a>
+            <a href="../Vista/masPrestamo.php">Insertar Prestamos</a>
+            <a href="../Vista/buscPrestamo.php">Buscar Prestamos</a>
         </div>
     </header>
 
