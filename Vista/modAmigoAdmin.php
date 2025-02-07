@@ -11,8 +11,8 @@ require_once("../Vista/cabecera.html");
             <a href="../Vista/login.php">Salir</a>
         </nav>
         <div>
-            <a href="../Vista/masAmigo.php">Insertar Amigos</a>
-            <a href="../Vista/buscAmigo.php">Buscar Amigos</a>
+            <a href="../Vista/masAmigoAdmin.php">Insertar Amigos</a>
+            <a href="../Vista/buscAmigoAdmin.php">Buscar Amigos</a>
         </div>
     </header>
 
@@ -22,12 +22,15 @@ require_once("../Vista/cabecera.html");
             <form id="aniadir-amigo" action="../Controlador/index.php" method="POST">
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" required>
-    
+
                 <label for="apellidos">Apellidos</label>
                 <input type="text" id="apellidos" name="apellidos" required>
 
                 <label for="fecha_nacimiento">Fecha de nacimiento</label>
                 <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="dd/mm/aaaa" required>
+
+                <label for="fecha_nacimiento">Usuario dueño</label>
+                <input type="selec" id="" name=""  required>
 
                 <button type="submit">Enviar</button>
             </form>
