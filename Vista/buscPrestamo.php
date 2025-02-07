@@ -1,7 +1,7 @@
 <?php
 require_once("../Vista/cabecera.html");
 ?>
-    <header id="">
+    <header>
         <h1>AGENDA PERSONAL</h1>
         <nav>
             <a href="../Vista/iniAmig.php">Amigos</a>
@@ -10,10 +10,11 @@ require_once("../Vista/cabecera.html");
             <a href="../Vista/login.php">Salir</a>
         </nav>
         <div>
-            <a href="../Vista/masJuego.php">Insertar Juegos</a>
-            <a href="../Vista/buscJuego.php">Buscar Juegos</a>
+            <a href="../Vista/masPrestamo.php">Insertar Prestamos</a>
+            <a href="../Vista/buscPrestamo.php">Buscar Prestamos</a>
         </div>
-    </header> 
+    </header>
+
 
     <main id="buscadores">
         <div class="form-busc">
