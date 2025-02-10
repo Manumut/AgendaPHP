@@ -4,23 +4,22 @@ require_once("../Vista/cabecera.html");
     <header>
         <h1>AGENDA PERSONAL</h1>
         <nav>
-            <a href="../Vista/iniAmig.php">Amigos</a>
-            <a href="../Vista/iniJuegos.php">Juegos</a>
-            <a href="../Vista/iniPrestamos.php">Prestamos</a>
+            <a href="../Vista/iniAmigAdmin.php">Contactos</a>
+            <a href="../Vista/iniUsuarios.php">Usuarios</a>
             <a href="../Vista/login.php">Salir</a>
         </nav>
         <div>
-            <a href="../Vista/masPrestamo.php">Insertar Prestamos</a>
-            <a href="../Vista/buscPrestamo.php">Buscar Prestamos</a>
+            <a href="../Vista/masUsuario.php">Insertar Usuario</a>
+            <a href="../Vista/buscUsuario.php">Buscar Usuario</a>
         </div>
     </header>
 
 
     <main id="buscadores">
         <div class="form-busc">
-            <h1>BUSCAR PRESTAMOS</h1>
+            <h1>BUSCAR USUARIOS</h1>
             <form action="../Controlador/index.php" method="POST">
-                <label for="busqueda"> Nombre del amigo/ Titulo del juego</label>
+                <label for="busqueda"> Nombre del usuario</label>
                 <input type="text" id="busqueda" name="busqueda" required>
                 <button type="submit">Buscar</button>
             </form>

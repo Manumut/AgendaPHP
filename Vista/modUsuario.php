@@ -2,7 +2,7 @@
 require_once("../Vista/cabecera.html");
 ?>
 
-<header>
+    <header>
         <h1>AGENDA PERSONAL</h1>
         <nav>
             <a href="../Vista/iniAmigAdmin.php">Contactos</a>
@@ -10,8 +10,8 @@ require_once("../Vista/cabecera.html");
             <a href="../Vista/login.php">Salir</a>
         </nav>
         <div>
-            <a href="../Vista/masPrestamo.php">Insertar Usuario</a>
-            <a href="../Vista/buscPrestamo.php">Buscar Usuario</a>
+            <a href="../Vista/masUsuario.php">Insertar Usuario</a>
+            <a href="../Vista/buscUsuario.php">Buscar Usuario</a>
         </div>
     </header>
 

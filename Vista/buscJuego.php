@@ -17,7 +17,7 @@ require_once("../Vista/cabecera.html");
 
     <main id="buscadores">
         <div class="form-busc">
-            <h1>Buscar Juegos</h1>
+            <h1>BUSCAR JUEGOS</h1>
             <form action="../Controlador/index.php" method="POST">
                 <label for="busqueda">Titulo del juego / Plataforma</label>
                 <input type="text" id="busqueda" name="busqueda" required>

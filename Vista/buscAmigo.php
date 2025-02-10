@@ -17,7 +17,7 @@ require_once("../Vista/cabecera.html");
     <main id="buscadores">
     
         <div class="form-busc">
-            <h1>Buscar Amigos</h1>
+            <h1>BUSCAR AMIGOS</h1>
             <form action="../Controlador/index.php" method="POST">
                 <label for="busqueda">Nombre o Apellidos</label>
                 <input type="text" id="busqueda" name="busqueda" required>

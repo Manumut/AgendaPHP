@@ -2,17 +2,16 @@
 require_once("../Vista/cabecera.html");
 ?>
 
-    <header>
+<header>
         <h1>AGENDA PERSONAL</h1>
         <nav>
-            <a href="../Vista/iniAmig.php">Amigos</a>
-            <a href="../Vista/iniJuegos.php">Juegos</a>
-            <a href="../Vista/iniPrestamos.php">Prestamos</a>
+            <a href="../Vista/iniAmigAdmin.php">Contactos</a>
+            <a href="../Vista/iniUsuarios.php">Usuarios</a>
             <a href="../Vista/login.php">Salir</a>
         </nav>
         <div>
-            <a href="../Vista/masAmigoAdmin.php">Insertar Amigos</a>
-            <a href="../Vista/buscAmigoAdmin.php">Buscar Amigos</a>
+            <a href="../Vista/masAmigoAdmin.php">Insertar Amigo</a>
+            <a href="../Vista/buscAmigoAdmin.php">Buscar Amigo</a>
         </div>
     </header>
 

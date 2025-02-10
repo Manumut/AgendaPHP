@@ -15,8 +15,8 @@ require_once('../Vista/cabecera.html');
             <a href="../Vista/login.php">Salir</a>
         </nav>
         <div>
-            <a href="../Vista/masPrestamo.php">Insertar Prestamos</a>
-            <a href="../Vista/buscPrestamo.php">Buscar Prestamos</a>
+            <a href="../Vista/masAmigoAdmin.php">Insertar Amigo</a>
+            <a href="../Vista/buscAmigoAdmin.php">Buscar Amigo</a>
         </div>
     </header>
 
