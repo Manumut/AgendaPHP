@@ -17,14 +17,14 @@
         }
         //Obtener los juegos del usuario
         public function obtenerJuegos(int $id_usuario){
-            $sentencia ="SELECT id_juego, titulo, plataforma, anio_lanzamiento, foto FROM juegos WHERE id_usuario= ?;";
+            $sentencia ="SELECT id_jue, nombre, plataforma, lanzamiento, url_img FROM juegos WHERE dueño= ?;";
             $consulta=$this->con->__get("con")->prepare($sentencia);
             $consulta->bind_param("i",$id_usuario);
-            $consulta->bind_result($id_juego, $titulo, $plataforma, $anio_lanzamiento, $foto);
+            $consulta->bind_result($id_jue, $nombre, $plataforma, $lanzamiento, $url_img);
             $juegos = array();
             $consulta->execute();
             while($consulta->fetch()){
-                array_push($juegos, [$titulo, $plataforma, $anio_lanzamiento, $foto, $id_juego]);
+                array_push($juegos, [$nombre, $plataforma, $lanzamiento, $url_img, $id_jue]);
             };
             $consulta->close();
             return $juegos;
