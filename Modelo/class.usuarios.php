@@ -1,5 +1,5 @@
 <?php
-    require_once("class.bd.php");
+    require_once("../Modelo/class.db.php");
     class Usuario{
         private $conn;
         public $id_usuario;
