@@ -13,16 +13,21 @@
             $this->contrasena;
             $this->tipo;
         }
-        //Obtener el id del usuario con los datos que nos pase de la vista de login
-        public function login(String $nombre_usuario, String $contrasena) {
-            $sentencia = "SELECT id_usuario FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?";
-            $consulta = $this->con->__get("con")->prepare($sentencia);
-            $consulta->bind_param("ss", $nombre_usuario, $contrasena);         
-            $consulta->bind_result($res);
+        // Método para iniciar sesión verificando usuario y contraseña en la base de datos
+        public function iniciar_sesion($user, $cont) {
+            $num = 0;
+            $sent = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?";
+            $consulta = $this->db->getCon()->prepare($sent);
+            $consulta->bind_param("ss", $user, $cont);
+            $consulta->bind_result($num);
             $consulta->execute();
-            $consulta->fetch();
-            return $res;     
+            $consulta->fetch(); 
+            $inicio = ($num == 1) ? true : false; // Si encuentra 1 coincidencia, inicia sesión
+            $consulta->close(); 
+            return $inicio;
         }
+
+
         //Obtener todos los usuarios de la base datos
         public function obtenerUsuarios(){
             $sentencia ="SELECT id_usuario, nombre_usuario, contrasena, tipo FROM usuarios";

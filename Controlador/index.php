@@ -1,25 +1,23 @@
 <?php
-    function inicio(){ //Login
-        if(isset($_POST["enviar"])){  //Si se ha pulsado el boton
-            require_once('../Modelo/coockie&Session.php'); //Incluimos el modelo
-            require_once('../Modelo/class.db.php');  //Incluimos la base de datos
+    function inicio(){
+        $user = $_POST["user"]; // Se obtiene el usuario del formulario
+        $pass = $_POST["psw"]; // Se obtiene la contraseña del formulario
+        $usuario = new Usuario();
+        $validacion = $usuario->iniciar_sesion($user, $pass); // Se verifica si el usuario es válido
 
-            $db = new db(); //Creamos el objeto
+        session_start(); // Se inicia la sesión
+        $_SESSION['user'] = $user; // Se guarda el usuario en la sesión
 
-            if(!isset($_POST["rec"])){  //Si no se ha pulsado el checkbox
-                unset_cookie("usuario"); //Borramos el cookie
-            }
+        // Si el usuario marcó "recuerdame", se guarda en una cookie por 30 días
+        if (isset($_POST["recuerdame"])) {
+            setcookie("user", $user, time() + (86400 * 30), "/");
+        }
 
-            if($db->compCrede($_POST["nom"], $_POST["psw"])) { //Comprobamos las credenciales
-                if(isset($_POST["rec"])) //Si se ha pulsado el checkbox
-                    set_cookie("usuario", $_POST["nom"]); //Creamos el cookie
-
-                set_session('usu', $_POST["nom"]);  //Creamos la sesion
-                $nUsu=$_POST["nom"];  //Guardamos el nombre en una variable
-                require_once('../Vista/iniAmig.php');  //Incluimos la bienvenida
-            }else{
-                require_once('../Vista/login.php');  //Incluimos el login
-            }
+        // Si la validación es correcta, se redirige a lista de amigos, si no, a lista de usuarios
+        if ($validacion) {
+            header("Location: iniAmigo.php");
+        } else {
+            header("Location: login.php");
         }
     }
 
