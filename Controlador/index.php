@@ -1,23 +1,50 @@
 <?php
-    function inicio(){
-        $user = $_POST["user"]; // Se obtiene el usuario del formulario
-        $pass = $_POST["psw"]; // Se obtiene la contraseña del formulario
+    // function inicio(){
+    //     $user = $_POST["user"]; // Se obtiene el usuario del formulario
+    //     $pass = $_POST["psw"]; // Se obtiene la contraseña del formulario
+    //     $usuario = new Usuario();
+    //     $validacion = $usuario->iniciar_sesion($user, $pass); // Se verifica si el usuario es válido
+
+    //     session_start(); // Se inicia la sesión
+    //     $_SESSION['user'] = $user; // Se guarda el usuario en la sesión
+
+    //     // Si el usuario marcó "recuerdame", se guarda en una cookie por 30 días
+    //     if (isset($_POST["recuerdame"])) {
+    //         setcookie("user", $user, time() + (86400 * 30), "/");
+    //     }
+
+    //     // Si la validación es correcta, se redirige a lista de amigos, si no, a lista de usuarios
+    //     if ($validacion) {
+    //         header("Location: ../Vista/iniAmigo.php");
+    //     } else {
+    //         header("Location: ./Vista/login.php");
+    //     }
+    // }
+
+    function inicio() {
+        $user = $_POST["user"];
+        $pass = $_POST["psw"];
+        echo "hola";
         $usuario = new Usuario();
-        $validacion = $usuario->iniciar_sesion($user, $pass); // Se verifica si el usuario es válido
+        $validacion = $usuario->iniciar_sesion($user, $pass);
+        echo "hola1";
 
-        session_start(); // Se inicia la sesión
-        $_SESSION['user'] = $user; // Se guarda el usuario en la sesión
+        session_start();
+        echo "hola2";
 
-        // Si el usuario marcó "recuerdame", se guarda en una cookie por 30 días
-        if (isset($_POST["recuerdame"])) {
-            setcookie("user", $user, time() + (86400 * 30), "/");
-        }
-
-        // Si la validación es correcta, se redirige a lista de amigos, si no, a lista de usuarios
         if ($validacion) {
-            header("Location: iniAmigo.php");
+            $_SESSION['user'] = $usuario->nombre_usuario;
+            $_SESSION['tipo'] = $usuario->tipo;
+    
+            if (isset($_POST["recuerdame"])) {
+                setcookie("user", $user, time() + (86400 * 30), "/");
+            }
+    
+            header("Location: ../Vista/iniAmigo.php");
+            exit();
         } else {
-            header("Location: login.php");
+            header("Location: ../Vista/login.php");
+            exit();
         }
     }
 

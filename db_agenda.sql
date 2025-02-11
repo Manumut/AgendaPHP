@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2025 a las 12:46:13
+-- Tiempo de generación: 11-02-2025 a las 19:18:44
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `agenda`
+-- Base de datos: `db_agenda`
 --
 
 -- --------------------------------------------------------
@@ -74,8 +74,17 @@ CREATE TABLE `prestamos` (
 CREATE TABLE `usuarios` (
   `id_usu` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `pasword` varchar(20) NOT NULL,
+  `tipo` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usu`, `nombre`, `pasword`, `tipo`) VALUES
+(1, 'manu', 'manu', 'usuario'),
+(2, 'admin', 'admin', 'admin');
 
 --
 -- Índices para tablas volcadas
@@ -140,7 +149,7 @@ ALTER TABLE `prestamos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usu` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usu` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
