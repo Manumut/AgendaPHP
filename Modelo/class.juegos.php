@@ -3,7 +3,7 @@
     class Juego{
         public $conn;
         public function __construct(){
-            $this->conn=new bd();
+            $this->conn=new db();
         }
         //Obtener los juegos del usuario
         public function obtenerJuegos(int $id_usuario){
@@ -46,6 +46,14 @@
             $consulta->close();
             return $resultado;
         }
+
+
+
+
+
+
+
+
         //Buscador de juegos del usuario
         public function buscarJuegos($busqueda, $id_usuario) {
             $sentencia = "SELECT id_juego, titulo, plataforma, anio_lanzamiento, foto 

@@ -9,14 +9,14 @@
         public $apellidos;
         public $nacimiento;
         public function __construct(){
-            $this->con=new bd();
+            $this->con=new db();
             $this->id_amigo;
             $this->id_usuario;
             $this->nombre;
             $this->apellidos;
             $this->nacimiento;   
         }
-        //Obtener todos los amigos de la tabla 
+        //Obtener todos los amigos de la tabla para el admin
         public function obtenerAllAmigos() {  
             $sentencia = "SELECT amigos.nombre, apellidos, nacimiento, usuarios.nombre, id_amigo FROM amigos, usuarios WHERE amigos.id_usuario=usuarios.id_usu";       
             $consulta = $this->con->__get("con")->prepare($sentencia);           
@@ -74,7 +74,7 @@
             $consulta->execute();
             $consulta->close();
         }
-        
+
         //Agregar el amigo nuevo
         public function insertar($id_usuario, $nombre, $apellidos, $nacimiento) {
             $sentencia = "INSERT INTO amigos (id_usuario, nombre, apellidos, nacimiento) VALUES (?, ?, ?, ?)";
@@ -82,6 +82,13 @@
             $consulta->bind_param("isss", $id_usuario, $nombre, $apellidos, $nacimiento);
             return $consulta->execute();
         }
+
+
+
+
+// MIRAR ESTO BIEN A FONDO XQ NO ME FIO DE MI
+
+
         //Buscador de amigo de usuario normal
         public function buscarAmigos($busqueda, $id_usuario) {
             $sentencia = "SELECT id_amigo, nombre, apellidos, nacimiento 
