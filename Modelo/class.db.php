@@ -6,7 +6,7 @@ class db {
     public function __construct() {
         $this->conn=new mysqli("localhost",USUARIO_CON,PSW_CON,"db_agenda");
     }
-    public function __get(){
+    public function getConexion(){
         return $this->$con;
     }
 }
