@@ -144,7 +144,7 @@
         public function busca($busqueda) {
             $sentencia = "SELECT id_usu, nombre, pasword FROM usuarios WHERE nombre LIKE ?";
             $consulta = $this->con->__get()->prepare($sentencia);
-            $likeBusqueda = $busqueda . "%";
+            $busque = $busqueda . "%";
             $consulta->bind_param("s", $busque );
             $consulta->execute();
             $consulta->bind_result($id_usu, $nombre, $pasword);

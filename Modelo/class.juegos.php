@@ -4,6 +4,7 @@
         public $con;
         public $id_jue;
         public $dueño;
+        public $url_img;
         public $nombre;
         public $plataforma;
         public $lanzamiento;

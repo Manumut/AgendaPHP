@@ -100,7 +100,7 @@
         public function buscarAmigos($busqueda, $id_usu) {
             $sentencia = "SELECT id_am, nombre, apellidos, nacimiento FROM amigos WHERE id_usuario = ? AND (nombre LIKE ? OR apellidos LIKE ?)";
             $consulta = $this->con->__get()->prepare($sentencia);
-            $likeBusqueda = $busqueda ."%";
+            $busque = $busqueda ."%";
             $consulta->bind_param("iss", $id_usu, $busque, $busque);
             $consulta->bind_result($id_amigo, $nombre, $apellidos, $nacimiento);
             $consulta->execute();
