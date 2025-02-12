@@ -16,48 +16,76 @@
             $this->apellidos;
             $this->nacimiento;   
         }
-        //Obtener todos los amigos de la tabla para el admin
-        public function obtenerAllAmigos() {  
-            $sentencia = "SELECT amigos.nombre, apellidos, nacimiento, usuarios.nombre, id_amigo FROM amigos, usuarios WHERE amigos.id_usuario=usuarios.id_usu";       
+
+        
+        
+        //Funcion para sacar todos los amigos  
+        public function allAmigos($idUsu) {         
+            $sentencia = "SELECT id_am, amigos.nombre, apellidos, nacimiento usuarios.nombre FROM amigos WHERE id_usuario = id_usu";            
             $consulta = $this->con->__get("con")->prepare($sentencia);           
-            $consulta->bind_result($res, $res2, $res3, $res4, $res5);
-            $amigos = array();
+            $consulta->bind_result($id_amigo, $nombre, $apellidos, $nacimiento, $id_usuario); //id_amigo, nombre, apellidos, nacimiento, id del dueño
             $consulta->execute();
+
+            $datAmigos = [];
             while($consulta->fetch()){
-                $fech = strtotime($res3);
-                $res3 = date('d-m-Y', $fech);
-                array_push($amigos, [$res, $res2, $res3, $res4, $res5]);
+                $datAmigos[$idAm]=[$amNombre,$ape,$nac,$due];
             };
             $consulta->close();
-            return $amigos;
+            return $datAmigos;
         }
-        //Obtener amigos por cada usuario
-        public function obtenerAmigos(int $id_usuario) {         //Funcion para obtener los amigos de cada usuario  
-            $sentencia = "SELECT id_am, nombre, apellidos, nacimiento FROM amigos WHERE id_usuario = ?";            
-            $consulta = $this->con->__get("con")->prepare($sentencia);           
-            $consulta->bind_param("i", $id_usuario);            
-            $consulta->bind_result($res4, $res, $res2, $res3); //id_amigo, nombre, apellidos, nacimiento
-            $amigos = array();
+
+
+        //Funcion para sacar los amigos de cada usuario  
+        public function amigosUsu($idUsu) {  
+            $sentencia = "SELECT amigos.nombre, apellidos, nacimiento, id_am FROM amigos, usuarios WHERE amigos.id_usuario=usuarios.id_usu";       
+            $consulta = $this->con->__get()->prepare($sentencia);   
+            $consulta->bind_param("i",$idUsu);
+            $consulta->bind_result($nombre, $apellidos, $nacimiento, $id_amigo);
             $consulta->execute();
+
+            $datAmigos = [];
             while($consulta->fetch()){
-                $fech = strtotime($res3); //paso nacimiento a fecha
-                $res3 = date('d-m-Y', $fech); //devuelvo la fecha en formato español
-                array_push($amigos, [$res, $res2, $res3, $res4]); // esto quiere decir que el array amigos va a tener un array con el id_amigo, nombre, apellidos y nacimiento
+                $datAmigos[$idAm]=[$nombre,$apellidos,$nacimiento];
             };
             $consulta->close();
-            return $amigos;
+            return $datAmigos;
         }
-        //obtener un amigo en concreto
-        public function obtenerPorId($id_amigo) {
-            $sentencia = "SELECT nombre, apellidos, nacimiento FROM amigos WHERE id_amigo = ?";
-            $consulta = $this->con->__get('con')->prepare($sentencia); 
-            $consulta->bind_param('i', $id_amigo); // esto lo que hace es pasar el id del amigo a buscar
+        
+        // funcion para insetar al amigo
+        public function insertarAmigo($nombre,$apellidos,$nacimiento,$id_usuario){
+            $sentencia="INSERT INTO amigos (nombre, apellidos, nacimiento, id_usuario) VALUES(?,?,?,?);";
+            $consulta=$this->conn->__get()->prepare($sentencia);
+            $consulta->bind_param("sssi",$nombre,$apellidos,$nacimiento,$id_usuario);
+            
             $consulta->execute();
-            $resultado = $consulta->get_result();
-            $amigo = $resultado->fetch_assoc();//devuelve un array asociativo
+
+            $inser=false;
+            if($consulta->affected_rows==1){
+                $inser=true;
+            }
+
             $consulta->close();
-            return $amigo;
+            return $inser;
         }
+
+
+        public function modificoAmigo($nombre,$apellidos,$nacimiento,$id_amigo){
+            $sentencia="UPDATE amigo SET nombre=?, apellidos=?, nacimiento=? WHERE id_am=?;";
+            $consulta=$this->conn->getConection()->prepare($sentencia);
+            $consulta->bind_param("sssi",$nombre,$apellidos,$nacimiento,$id_amigo);
+            $consulta->execute();
+            
+            $modifi=false;
+            if($consulta->affected_rows==1){
+                $modifi=true;
+            }
+
+            $consulta->close();
+            return $modifi;
+        }
+
+
+        
         //Modificar el amigo seleccionado siendo usuario
         public function actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento) {
             $sentencia = "UPDATE amigos SET nombre = ?, apellidos = ?, nacimiento = ? WHERE id_amigo = ?";
@@ -90,15 +118,13 @@
 
 
         //Buscador de amigo de usuario normal
-        public function buscarAmigos($busqueda, $id_usuario) {
-            $sentencia = "SELECT id_amigo, nombre, apellidos, nacimiento 
-                    FROM amigos 
-                    WHERE id_usuario = ? AND (nombre LIKE ? OR apellidos LIKE ?)";
-            $consulta = $this->con->__get("con")->prepare($sentencia);
-            $likeBusqueda = "%" . $busqueda . "%";
-            $consulta->bind_param("iss", $id_usuario, $likeBusqueda, $likeBusqueda);
-            $consulta->execute();
+        public function buscarAmigos($busqueda, $id_usu) {
+            $sentencia = "SELECT id_am, nombre, apellidos, nacimiento FROM amigos WHERE id_usuario = ? AND (nombre LIKE ? OR apellidos LIKE ?)";
+            $consulta = $this->con->__get()->prepare($sentencia);
+            $likeBusqueda = $busqueda . "%";
+            $consulta->bind_param("iss", $id_usu, $busque, $busque);
             $consulta->bind_result($id_amigo, $nombre, $apellidos, $nacimiento);
+            $consulta->execute();
         
             $amigos = array();
             while ($consulta->fetch()) {

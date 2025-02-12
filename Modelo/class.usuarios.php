@@ -117,7 +117,7 @@
         //Insertar usuario
         public function insertarUsu($nombre, $pasword) {
             $sentencia = "INSERT INTO usuarios (nombre, pasword) VALUES (?, ?)";
-            $consulta = $this->con->getConexion()->prepare($sentencia);
+            $consulta = $this->con->__get()->prepare($sentencia);
             $consulta->bind_param("ss", $nombre, $pasword);
             $consulta->execute();
             $consulta->close();
@@ -131,32 +131,31 @@
 
         
         //Modificar los usarios
-        public function actualizar($nombre, $pasword, $id_usu) {
-            $sentencia = "UPDATE usuarios SET nombre = ?, pasword = ? WHERE id_usu = ?";
-            $consulta = $this->con->getConexion()->prepare($sentencia);
-            $consulta->bind_param('ssi', $nombre, $pasword, $id_usu);
+        public function modifica($nombre, $pasword, $id_usu) {
+            $sentencia = "UPDATE usuarios SET nombre = ?, pasword = ? WHERE id_usu = ?;";
+            $consulta = $this->con->__get()->prepare($sentencia);
+            $consulta->bind_param("ssi", $nombre, $pasword, $id_usu);
             return $consulta->execute();
         }
 
 
 
         //Seleccionar los usuarios para el buscador
-        public function buscarUsuarios($busqueda) {
-            $sentencia = "SELECT id_usu, nombre, pasword 
-                    FROM usuarios 
-                    WHERE nombre LIKE ? OR pasword LIKE ?";
-            $consulta = $this->con->getConexion()->prepare($sentencia);
-            $likeBusqueda = "%" . $busqueda . "%";
-            $consulta->bind_param("ss", $likeBusqueda, $likeBusqueda);
+        public function busca($busqueda) {
+            $sentencia = "SELECT id_usu, nombre, pasword FROM usuarios WHERE nombre LIKE ?";
+            $consulta = $this->con->__get()->prepare($sentencia);
+            $likeBusqueda = $busqueda . "%";
+            $consulta->bind_param("s", $busque );
             $consulta->execute();
             $consulta->bind_result($id_usu, $nombre, $pasword);
         
-            $usuarios = array();
-            while ($consulta->fetch()) {
-                array_push($usuarios, [$id_usu, $nombre, $pasword]);
+            $datos=[];
+            while($consulta->fetch()){
+                $datos[$id_usu]=[$nombre, $pasword];
             }
+
             $consulta->close();
-            return $usuarios;
+            return $datos;
         }
     }
 ?>
