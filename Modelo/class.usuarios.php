@@ -2,88 +2,137 @@
     require_once("../Modelo/class.db.php");
     class Usuario{
         private $con;
-        public $id_usuario;
-        public $nombre_usuario;
-        public $password;
+        public $id_usu;
+        public $nombre;
+        public $pasword;
         public $tipo;
         public function __construct(){
             $this->con=new bd();
-            $this->id_usuario;
-            $this->nombre_usuario;
-            $this->contrasena;
+            $this->id_usu;
+            $this->nombre;
+            $this->pasword;
             $this->tipo;
         }
         // Método para iniciar sesión verificando usuario y contraseña en la base de datos
-        public function iniciar_sesion($user, $cont) {
-            $num = 0;
-            $sent = "SELECT count(*) FROM usuarios WHERE nombre = ? AND pasword = ?";
-            $consulta = $this->con->getConexion()->prepare($sent);
-            $consulta->bind_param("ss", $user, $cont);
-            $consulta->execute();
-            $consulta->bind_result($num);
-            $consulta->fetch();
-            echo "hola3";
+        // public function iniciar_sesion($user, $cont) {
+        //     $num = 0;
+        //     $sent = "SELECT count(*) FROM usuarios WHERE nombre = ? AND pasword = ?";
+        //     $consulta = $this->con->getConexion()->prepare($sent);
+        //     $consulta->bind_param("ss", $user, $cont);
+        //     $consulta->execute();
+        //     $consulta->bind_result($num);
+        //     $consulta->fetch();
+        //     echo "hola3";
 
-            $inicio = ($num == 1) ? true : false; // Si encuentra 1 coincidencia, inicia sesión
-            $consulta->close(); 
-            return $inicio;
-        }
+        //     $inicio = ($num == 1) ? true : false; // Si encuentra 1 coincidencia, inicia sesión
+        //     $consulta->close(); 
+        //     return $inicio;
+        // }
 
 
-        //Obtener todos los usuarios de la base datos
-        public function obtenerUsuarios(){
-            $sentencia ="SELECT id_usuario, nombre_usuario, contrasena, tipo FROM usuarios";
-            $consulta=$this->con->__get("con")->prepare($sentencia);
-            $consulta->bind_result($res, $res2, $res3, $res4);
-            $usuarios = array();
-            $consulta->execute();
-            while($consulta->fetch()){
-                array_push($usuarios, [$res, $res2, $res3, $res4]);
-            };
-            $consulta->close();
-            return $usuarios;
-        }
-        //Obtener el tipo de usuario 
-        public function obtenerTipoUsu($id_usuario){
-            $sentencia ="SELECT tipo FROM usuarios WHERE id_usuario=?;";
-            $consulta=$this->con->__get("con")->prepare($sentencia);
-            $consulta->bind_param("s",$id_usuario);
-            $consulta->bind_result($tip);
-            $consulta->execute();
-            $consulta->fetch();
-            return $tip;
-        }
-        //obtener el id del usuario
         public function obtenerId($nombre_usuario){
-            $sentencia="SELECT id_usuario FROM usuarios WHERE nombre_usuario=?;";
-            $consulta=$this->con->__get("con")->prepare($sentencia);
+            $sentencia="SELECT id_usu FROM usuarios WHERE nombre=? and pasword=?;";
+            $consulta=$this->con->__get()->prepare($sentencia);
             $consulta->bind_param("s",$nombre_usuario);
             $consulta->bind_result($id_usuario);
             $consulta->execute();
             $consulta->fetch();
+            $consulta->close();
             return $id_usuario;
         }
-        //Insertar usuario
-        public function insertar($nombre_usuario, $contrasena) {
-            $sentencia = "INSERT INTO usuarios (nombre_usuario, contrasena) VALUES (?, ?)";
-            $consulta = $this->con->__get("con")->prepare($sentencia);
-            $consulta->bind_param("ss", $nombre_usuario, $contrasena);
-            return $consulta->execute();
-        }
-        //Obtener los datos del usuarios
-        public function obtenerPorId($id_usuario) {
-            $sentencia = "SELECT nombre_usuario, contrasena FROM usuarios WHERE id_usuario = ?";
-            $consulta = $this->con->__get('con')->prepare($sentencia); // Usamos la conexión desde la clase `bd`
-            $consulta->bind_param('i', $id_usuario);
+
+        // obtener todos los usuarios 
+        public function obtenerUsuarios(){
+            $sentencia="SELECT id_usu,nombre,pasword FROM usuarios;";
+            $consulta=$this->conn->getConection()->prepare($sentencia);
+            $consulta->bind_result($id,$nombre,$contrasenia);
             $consulta->execute();
-            $resultado = $consulta->get_result();
-            $usuario = $resultado->fetch_assoc();
+
+            $usuarios=[];
+            while($consulta->fetch()){
+                $usuarios[$id]=[$nombre,$contrasenia];
+            }
+
             $consulta->close();
-            return $usuario;
+            return $usuarios;
         }
+
+
+
+        public function tipoUsu($nom,$psw){
+            //Comprueba de q tipo es el usuario
+            $sentencia="SELECT tipo FROM usuario WHERE nombre=? AND contrasenia=?;";
+            $consulta=$this->con->__get()->prepare($sentencia);
+            $consulta->bind_param("ss",$nom,$psw);
+            $consulta->bind_result($tipo);
+            $consulta->execute();
+            $consulta->fetch();
+            $consulta->close();
+            return $tipo;
+        }
+
+
+        public function contraseniaCorrec($nom,$contra){
+            //Comprobar que la contraseña es la correcta
+            $sentencia="SELECT count(contrasenia) FROM usuario WHERE nombre=? AND contrasenia=?;";
+            $consulta=$this->conn->__get()->prepare($sentencia);
+            $consulta->bind_param("ss",$nom,$contra);
+            $consulta->bind_result($count);
+
+            $consulta->execute();
+            $consulta->fetch();
+
+            $correcto=false;
+            // si encuentra 1 coincidencia
+            if($count==1){
+                $correcto=true;
+            }
+
+            $consulta->close();
+            return $correcto;  
+        }
+
+
+        public function nombreCorrec($nom){
+            //Comprueba si el nombre de usuario ya existe en la bd
+            $sentencia="SELECT count(id_usu) FROM usuarios WHERE nombre=?;";
+            $consulta=$this->conn->__get()->prepare($sentencia);
+            $consulta->bind_param("s",$nom);
+            $consulta->bind_result($count);
+            $consulta->execute();
+
+            $consulta->fetch();
+            $existe=false;
+            
+            if($count==1){
+                $existe=true;
+            }
+
+            $consulta->close();
+            return $existe;           
+        }
+
+        
+        //obtener el id del usuario
+        //Insertar usuario
+        public function insertarUsu($nombre, $pasword) {
+            $sentencia = "INSERT INTO usuarios (nombre, pasword) VALUES (?, ?)";
+            $consulta = $this->con->__get("con")->prepare($sentencia);
+            $consulta->bind_param("ss", $nombre, $pasword);
+            $consulta->execute();
+            $consulta->close();
+            return $insertado;
+        }
+
+
+
+
+
+
+        
         //Modificar los usarios
-        public function actualizar($nombre_usuario, $contrasena, $id_usuario) {
-            $sentencia = "UPDATE usuarios SET nombre_usuario = ?, contrasena = ? WHERE id_usuario = ?";
+        public function actualizar($nombre, $pasword, $id_usu) {
+            $sentencia = "UPDATE usuarios SET nombre = ?, pasword = ? WHERE id_usu = ?";
             $consulta = $this->con->__get('con')->prepare($sentencia);
             $consulta->bind_param('ssi', $nombre_usuario, $contrasena, $id_usuario);
             $consulta->execute();
