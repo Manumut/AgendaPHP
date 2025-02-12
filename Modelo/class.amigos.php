@@ -8,6 +8,7 @@
         public $nombre;
         public $apellidos;
         public $nacimiento;
+        
         public function __construct(){
             $this->con=new db();
             $this->id_amigo;
@@ -96,7 +97,7 @@
 
 
 
-        //Buscador de amigo de usuario normal
+        //Buscador de amigo por nombre o apellido
         public function buscarAmigos($busqueda, $id_usu) {
             $sentencia = "SELECT id_am, nombre, apellidos, nacimiento FROM amigos WHERE id_usuario = ? AND (nombre LIKE ? OR apellidos LIKE ?)";
             $consulta = $this->con->__get()->prepare($sentencia);

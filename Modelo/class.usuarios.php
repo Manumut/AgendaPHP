@@ -6,6 +6,7 @@
         public $nombre;
         public $pasword;
         public $tipo;
+        
         public function __construct(){
             $this->con=new db();
             $this->id_usu;
@@ -44,8 +45,8 @@
 
 
 
+        //tipo de usuario, es decir, admin o usuario normal
         public function tipoUsu($nom,$psw){
-            //Comprueba de q tipo es el usuario
             $sentencia="SELECT tipo FROM usuario WHERE nombre=? AND contrasenia=?;";
             $consulta=$this->con->__get()->prepare($sentencia);
             $consulta->bind_param("ss",$nom,$psw);
@@ -57,8 +58,8 @@
         }
 
 
+        //se busca la contraseña para saber si es la correcta
         public function contraseniaCorrec($nom,$contra){
-            //Comprobar que la contraseña es la correcta
             $sentencia="SELECT count(contrasenia) FROM usuario WHERE nombre=? AND contrasenia=?;";
             $consulta=$this->conn->__get()->prepare($sentencia);
             $consulta->bind_param("ss",$nom,$contra);
@@ -67,8 +68,8 @@
             $consulta->execute();
             $consulta->fetch();
 
+            // compruebo q encuentre algo y si encuentra una es porque esta bien
             $correcto=false;
-            // si encuentra 1 coincidencia
             if($count==1){
                 $correcto=true;
             }
@@ -78,8 +79,8 @@
         }
 
 
+        //revisa si ese nombre esta en la base de datos
         public function nombreCorrec($nom){
-            //Comprueba si el nombre de usuario ya existe en la bd
             $sentencia="SELECT count(id_usu) FROM usuarios WHERE nombre=?;";
             $consulta=$this->conn->__get()->prepare($sentencia);
             $consulta->bind_param("s",$nom);

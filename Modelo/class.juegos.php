@@ -30,7 +30,7 @@
 
             $juegos=[];
             while($consulta->fetch()){
-                $juegos[$id]=[$img,$titulo,$plataforma,$lanzamiento];
+                $juegos[$id]=[$img,$nombre,$plataforma,$lanzamiento];
             }
             $consulta->close();
             return $juegos;
@@ -49,49 +49,42 @@
         }
 
         //Insertar un nuevo juego para el usuario
-        public function inserJuego($id_usu, $titulo, $plataforma, $lanzamiento, $url_img){
+        public function inserJuego($id_usu, $nombre, $plataforma, $lanzamiento, $url_img){
             $sentencia = "INSERT INTO juegos (dueño, url_img, nombre, plataforma, lanzamiento) VALUES (?, ?, ?, ?,?)";
             $consulta = $this->con->__get()->prepare($sentencia);
-            $consulta->bind_param("issss", $id_usu, $titulo, $plataforma, $lanzamiento, $url_img);
+            $consulta->bind_param("issss", $id_usu, $nombre, $plataforma, $lanzamiento, $url_img);
             return $consulta->execute();
         }
 
 
         
         //Modificar el juego seleccionado
-        public function actualizar($id_juego, $titulo, $plataforma, $anio_lanzamiento, $foto) {
-            $sentencia = "UPDATE juegos SET titulo = ?, plataforma = ?, anio_lanzamiento = ?, foto = ? WHERE id_juego = ?";
+        public function modiJuego($id_jue, $url_img, $nombre, $plataforma, $lanzamiento ) {
+            $sentencia = "UPDATE juegos SET url_img = ? nombre = ?, plataforma = ?, lanzamiento = ?,  WHERE id_juego = ?";
             $consulta = $this->con->__get()->prepare($sentencia);
-            $consulta->bind_param("ssssi", $titulo, $plataforma, $anio_lanzamiento, $foto, $id_juego);
+            $consulta->bind_param("issss", $id_jue, $url_img, $nombre, $plataforma, $lanzamiento);
             $resultado = $consulta->execute();
             $consulta->close();
             return $resultado;
         }
 
 
-
-
-
-
-
-
-        //Buscador de juegos del usuario
-        public function buscarJuegos($busqueda, $id_usuario) {
-            $sentencia = "SELECT id_juego, titulo, plataforma, anio_lanzamiento, foto 
-                    FROM juegos 
-                    WHERE id_usuario = ? AND (titulo LIKE ? OR plataforma LIKE ?)";
-            $consulta = $this->con->__get()->prepare($sentencia);
-            $likeBusqueda = "%" . $busqueda . "%";
-            $consulta->bind_param("iss", $id_usuario, $likeBusqueda, $likeBusqueda);
+        // Funcion para buscar juego por nombre del juego o plataforma
+        public function buscarJuego($busqueda, $idUsu){
+            $sentencia="SELECT id_jue, url_img, nombre, plataforma, lanzamiento FROM juegos WHERE (nombre LIKE ? OR plataforma LIKE ?) AND dueño=?;";
+            $consulta=$this->conn->__get()->prepare($sentencia);
+            $busque= $busqueda . "%";
+            $consulta->bind_param("iss", $id, $busque, $busque);
+            $consulta->bind_result($id_jue, $url_img, $nombre, $plataforma, $lanzamiento);
             $consulta->execute();
-            $consulta->bind_result($id_juego, $titulo, $plataforma, $anio_lanzamiento, $foto);
-        
-            $juegos = array();
-            while ($consulta->fetch()) {
-                array_push($juegos, [$titulo, $plataforma, $anio_lanzamiento, $foto, $id_juego]);
+
+            $buscJu=[];
+            while($consulta->fetch()){
+                $buscJu[$id_jue]=[$url_img, $nombre, $plataforma, $lanzamiento];
             }
+
             $consulta->close();
-            return $juegos;
+            return $buscJu;
         }
     }
 ?>

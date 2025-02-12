@@ -9,6 +9,7 @@
         private $juego;
         private $fecha;
         private $devuelto;
+        
         public function __construct() {
             $this->con = new db();
             $this->id_pres;
@@ -43,13 +44,13 @@
             return $consulta->execute();
         }
         
-        //buscador de prestamos por el nombre del juego
+        //buscador de prestamos por el nombre del juego o nimbre del amigo
         public function buscarPrestamos($busqueda, $id_usuario) {
-            $sentencia = "SELECT id_pres, amigos.nombre, juegos.nombre, prestamos.fecha, url_img, devuelto FROM prestamos, amigos, juegos WHERE prestamos.juego=id_jue AND prestamos.amigo=amigos.id_am AND prestamos.id_usuario = ? AND (juegos.nombre LIKE ?)";
+            $sentencia = "SELECT id_pres, amigos.nombre, juegos.nombre, prestamos.fecha, url_img, devuelto FROM prestamos, amigos, juegos WHERE prestamos.juego=id_jue AND prestamos.amigo=amigos.id_am AND prestamos.id_usuario = ? AND (juegos.nombre LIKE ? OR  amigos.nombre LIKE ?)";
             
             $consulta = $this->con->__get()->prepare($sentencia);
             $busque =$busqueda. "%";
-            $consulta->bind_param("is", $id_usuario, $likeBusqueda, );
+            $consulta->bind_param("is", $id_usuario, $busque, $busque );
             $consulta->bind_result($id_prestamo, $amigo, $titulo, $fecha_prestamo, $foto, $devuelto);
             $consulta->execute();
             $busc=[];
