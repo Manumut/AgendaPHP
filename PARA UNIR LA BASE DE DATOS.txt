@@ -12,4 +12,6 @@ en la base de datos entro en cuentas de usuarios y creo mi usuario
     en class_db.php pondremos un required_once('../../cred.php);  y en el nombre de usuario pondremos USUARIO_CON y en la contraseña PASS_CON
 -->
 
+Decir que si no hay nada en la base de datos es porque ayer tuve que hacer la base de datos de nuevo
+
 class_db.php --> Se pone en el xampp

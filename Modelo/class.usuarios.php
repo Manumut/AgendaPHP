@@ -7,29 +7,14 @@
         public $pasword;
         public $tipo;
         public function __construct(){
-            $this->con=new bd();
+            $this->con=new db();
             $this->id_usu;
             $this->nombre;
             $this->pasword;
             $this->tipo;
         }
-        // Método para iniciar sesión verificando usuario y contraseña en la base de datos
-        // public function iniciar_sesion($user, $cont) {
-        //     $num = 0;
-        //     $sent = "SELECT count(*) FROM usuarios WHERE nombre = ? AND pasword = ?";
-        //     $consulta = $this->con->getConexion()->prepare($sent);
-        //     $consulta->bind_param("ss", $user, $cont);
-        //     $consulta->execute();
-        //     $consulta->bind_result($num);
-        //     $consulta->fetch();
-        //     echo "hola3";
-
-        //     $inicio = ($num == 1) ? true : false; // Si encuentra 1 coincidencia, inicia sesión
-        //     $consulta->close(); 
-        //     return $inicio;
-        // }
-
-
+        
+        // Para tener el id del usuario
         public function obtenerId($nombre_usuario){
             $sentencia="SELECT id_usu FROM usuarios WHERE nombre=? and pasword=?;";
             $consulta=$this->con->__get()->prepare($sentencia);

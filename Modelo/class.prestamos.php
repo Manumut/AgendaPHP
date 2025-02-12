@@ -10,7 +10,7 @@
         private $fecha;
         private $devuelto;
         public function __construct() {
-            $this->con = new bd();
+            $this->con = new db();
             $this->id_pres;
             $this->usuario;
             $this->amigo;

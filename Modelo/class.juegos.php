@@ -8,39 +8,38 @@
         public $nombre;
         public $plataforma;
         public $lanzamiento;
+
         public function __construct(){
             $this->con=new db();
             $this->id_jue;
             $this->dueño;
+            $this->url_img;
             $this->nombre;
             $this->plataforma;
             $this->lanzamiento;   
         }
-        //Obtener los juegos del usuario
-        public function obtenerJuegos(int $id_usuario){
-            $sentencia ="SELECT id_jue, nombre, plataforma, lanzamiento, url_img FROM juegos WHERE dueño= ?;";
-            $consulta=$this->con->__get("con")->prepare($sentencia);
-            $consulta->bind_param("i",$id_usuario);
-            $consulta->bind_result($id_jue, $nombre, $plataforma, $lanzamiento, $url_img);
-            $juegos = array();
+
+        
+        //Sacar los juegos segun el usuario
+        public function obtenerJuegos($id_usu){
+            $sentencia ="SELECT id_jue, nombre, url_img, plataforma, lanzamiento FROM juegos WHERE dueño= ?;";
+            $consulta=$this->con->__get()->prepare($sentencia);
+            $consulta->bind_param("i",$id_usu);
+            $consulta->bind_result($id_jue, $nombre, $url_img, $plataforma, $lanzamiento);
             $consulta->execute();
+
+            $juegos=[];
             while($consulta->fetch()){
-                array_push($juegos, [$nombre, $plataforma, $lanzamiento, $url_img, $id_jue]);
-            };
+                $juegos[$id]=[$img,$titulo,$plataforma,$lanzamiento];
+            }
             $consulta->close();
             return $juegos;
         }
-        //Insertar un nuevo juego para el usuario
-        public function insertar($id_usuario, $titulo, $plataforma, $anio_lanzamiento, $foto){
-            $sentencia = "INSERT INTO juegos (id_usuario, titulo, plataforma, anio_lanzamiento, foto) VALUES (?, ?, ?, ?,?)";
-            $consulta = $this->con->__get("con")->prepare($sentencia);
-            $consulta->bind_param("issss", $id_usuario, $titulo, $plataforma, $anio_lanzamiento, $foto);
-            return $consulta->execute();
-        }
-        //Obtener el juego en especifico
-        public function obtenerPorId(int $id_juego) {
-            $sentencia = "SELECT titulo, plataforma, anio_lanzamiento, foto FROM juegos WHERE id_juego = ?";
-            $consulta = $this->con->__get("con")->prepare($sentencia);
+
+        //Obtener el juego en especifico por el id
+        public function juegoId($id_juego) {
+            $sentencia = "SELECT url_img, nombre, plataforma, lanzamiento FROM juegos WHERE id_jue = ?";
+            $consulta = $this->con->__get()->prepare($sentencia);
             $consulta->bind_param("i", $id_juego);
             $consulta->execute();
             $resultado = $consulta->get_result();
@@ -48,10 +47,21 @@
             $consulta->close();
             return $juego;
         }
+
+        //Insertar un nuevo juego para el usuario
+        public function inserJuego($id_usu, $titulo, $plataforma, $lanzamiento, $url_img){
+            $sentencia = "INSERT INTO juegos (dueño, url_img, nombre, plataforma, lanzamiento) VALUES (?, ?, ?, ?,?)";
+            $consulta = $this->con->__get()->prepare($sentencia);
+            $consulta->bind_param("issss", $id_usu, $titulo, $plataforma, $lanzamiento, $url_img);
+            return $consulta->execute();
+        }
+
+
+        
         //Modificar el juego seleccionado
         public function actualizar($id_juego, $titulo, $plataforma, $anio_lanzamiento, $foto) {
             $sentencia = "UPDATE juegos SET titulo = ?, plataforma = ?, anio_lanzamiento = ?, foto = ? WHERE id_juego = ?";
-            $consulta = $this->con->__get("con")->prepare($sentencia);
+            $consulta = $this->con->__get()->prepare($sentencia);
             $consulta->bind_param("ssssi", $titulo, $plataforma, $anio_lanzamiento, $foto, $id_juego);
             $resultado = $consulta->execute();
             $consulta->close();
@@ -70,7 +80,7 @@
             $sentencia = "SELECT id_juego, titulo, plataforma, anio_lanzamiento, foto 
                     FROM juegos 
                     WHERE id_usuario = ? AND (titulo LIKE ? OR plataforma LIKE ?)";
-            $consulta = $this->con->__get("con")->prepare($sentencia);
+            $consulta = $this->con->__get()->prepare($sentencia);
             $likeBusqueda = "%" . $busqueda . "%";
             $consulta->bind_param("iss", $id_usuario, $likeBusqueda, $likeBusqueda);
             $consulta->execute();
