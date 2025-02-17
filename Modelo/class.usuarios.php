@@ -18,7 +18,7 @@
         // Para tener el id del usuario
         public function obtenerId($nombre_usuario){
             $sentencia="SELECT id_usu FROM usuarios WHERE nombre=? and pasword=?;";
-            $consulta=$this->con->__get()->prepare($sentencia);
+            $consulta=$this->con->getConexion()->prepare($sentencia);
             $consulta->bind_param("s",$nombre_usuario);
             $consulta->bind_result($id_usuario);
             $consulta->execute();
@@ -48,7 +48,7 @@
         //tipo de usuario, es decir, admin o usuario normal
         public function tipoUsu($nom,$psw){
             $sentencia="SELECT tipo FROM usuario WHERE nombre=? AND contrasenia=?;";
-            $consulta=$this->con->__get()->prepare($sentencia);
+            $consulta=$this->con->getConexion()->prepare($sentencia);
             $consulta->bind_param("ss",$nom,$psw);
             $consulta->bind_result($tipo);
             $consulta->execute();
@@ -61,7 +61,7 @@
         //se busca la contraseña para saber si es la correcta
         public function contraseniaCorrec($nom,$contra){
             $sentencia="SELECT count(contrasenia) FROM usuario WHERE nombre=? AND contrasenia=?;";
-            $consulta=$this->conn->__get()->prepare($sentencia);
+            $consulta=$this->conn->getConexion()->prepare($sentencia);
             $consulta->bind_param("ss",$nom,$contra);
             $consulta->bind_result($count);
 
@@ -82,7 +82,7 @@
         //revisa si ese nombre esta en la base de datos
         public function nombreCorrec($nom){
             $sentencia="SELECT count(id_usu) FROM usuarios WHERE nombre=?;";
-            $consulta=$this->conn->__get()->prepare($sentencia);
+            $consulta=$this->conn->getConexion()->prepare($sentencia);
             $consulta->bind_param("s",$nom);
             $consulta->bind_result($count);
             $consulta->execute();
@@ -103,7 +103,7 @@
         //Insertar usuario
         public function insertarUsu($nombre, $pasword) {
             $sentencia = "INSERT INTO usuarios (nombre, pasword) VALUES (?, ?)";
-            $consulta = $this->con->__get()->prepare($sentencia);
+            $consulta = $this->con->getConexion()->prepare($sentencia);
             $consulta->bind_param("ss", $nombre, $pasword);
             $consulta->execute();
             $consulta->close();
@@ -119,7 +119,7 @@
         //Modificar los usarios
         public function modifica($nombre, $pasword, $id_usu) {
             $sentencia = "UPDATE usuarios SET nombre = ?, pasword = ? WHERE id_usu = ?;";
-            $consulta = $this->con->__get()->prepare($sentencia);
+            $consulta = $this->con->getConexion()->prepare($sentencia);
             $consulta->bind_param("ssi", $nombre, $pasword, $id_usu);
             return $consulta->execute();
         }
@@ -129,7 +129,7 @@
         //Seleccionar los usuarios para el buscador
         public function busca($busqueda) {
             $sentencia = "SELECT id_usu, nombre, pasword FROM usuarios WHERE nombre LIKE ?";
-            $consulta = $this->con->__get()->prepare($sentencia);
+            $consulta = $this->con->getConexion()->prepare($sentencia);
             $busque = $busqueda . "%";
             $consulta->bind_param("s", $busque );
             $consulta->execute();

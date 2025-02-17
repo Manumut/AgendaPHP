@@ -23,7 +23,7 @@
         //Funcion para sacar todos los amigos  
         public function allAmigos($idUsu) {         
             $sentencia = "SELECT id_am, amigos.nombre, apellidos, nacimiento usuarios.nombre FROM amigos WHERE id_usuario = id_usu";            
-            $consulta = $this->con->__get()->prepare($sentencia);           
+            $consulta = $this->con->getConexion()->prepare($sentencia);           
             $consulta->bind_result($id_amigo, $nombre, $apellidos, $nacimiento, $id_usuario); //id_amigo, nombre, apellidos, nacimiento, id del dueño
             $consulta->execute();
 
@@ -39,7 +39,7 @@
         //Funcion para sacar los amigos de cada usuario  
         public function amigosUsu($idUsu) {  
             $sentencia = "SELECT amigos.nombre, apellidos, nacimiento, id_am FROM amigos, usuarios WHERE amigos.id_usuario=usuarios.id_usu";       
-            $consulta = $this->con->__get()->prepare($sentencia);   
+            $consulta = $this->con->getConexion()->prepare($sentencia);   
             $consulta->bind_param("i",$idUsu);
             $consulta->bind_result($nombre, $apellidos, $nacimiento, $id_amigo);
             $consulta->execute();
@@ -55,7 +55,7 @@
         // funcion para insetar al amigo
         public function insertarAmigo($nombre,$apellidos,$nacimiento,$id_usuario){
             $sentencia="INSERT INTO amigos (nombre, apellidos, nacimiento, id_usuario) VALUES(?,?,?,?);";
-            $consulta=$this->con->__get()->prepare($sentencia);
+            $consulta=$this->con->getConexion()->prepare($sentencia);
             $consulta->bind_param("sssi",$nombre,$apellidos,$nacimiento,$id_usuario);
             
             $consulta->execute();
@@ -72,7 +72,7 @@
         // funcion para modificar amigo
         public function modificoAmigo($nombre,$apellidos,$nacimiento,$id_amigo){
             $sentencia="UPDATE amigo SET nombre=?, apellidos=?, nacimiento=? WHERE id_am=?;";
-            $consulta=$this->con->__get()->prepare($sentencia);
+            $consulta=$this->con->getConexion()->prepare($sentencia);
             $consulta->bind_param("sssi",$nombre,$apellidos,$nacimiento,$id_amigo);
             $consulta->execute();
             
@@ -89,7 +89,7 @@
         //Modificar el amigo seleccionado siendo admin
         public function modAmiAdmin($id_amigo, $id_usuario, $nombre, $apellidos, $nacimiento) {
             $sentencia = "UPDATE amigos SET id_usuario = ?, nombre = ?, apellidos = ?, nacimiento = ? WHERE id_am = ?";
-            $consulta = $this->con->__get()->prepare($sentencia);
+            $consulta = $this->con->getConexion()->prepare($sentencia);
             $consulta->bind_param('isssi',$id_usuario, $nombre, $apellidos, $nacimiento, $id_amigo );
             $consulta->execute();
             $consulta->close();
@@ -100,7 +100,7 @@
         //Buscador de amigo por nombre o apellido
         public function buscarAmigos($busqueda, $id_usu) {
             $sentencia = "SELECT id_am, nombre, apellidos, nacimiento FROM amigos WHERE id_usuario = ? AND (nombre LIKE ? OR apellidos LIKE ?)";
-            $consulta = $this->con->__get()->prepare($sentencia);
+            $consulta = $this->con->getConexion()->prepare($sentencia);
             $busque = $busqueda ."%";
             $consulta->bind_param("iss", $id_usu, $busque, $busque);
             $consulta->bind_result($id_amigo, $nombre, $apellidos, $nacimiento);
