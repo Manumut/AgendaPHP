@@ -59,6 +59,11 @@
         }
         
     }
+    function salir(){
+        require_once("../Modelo/class.sesion.php");
+        cerrarSesion();
+        header("Location: ../Vista/login.php");
+    }
 
     //Función para redirigir a la vista de amigos
     function VistaAmigos() {
@@ -68,9 +73,16 @@
 
         //Como esta vista también puede ser la de contactos del admin, hay que comprobar el tipo de usuario
         if(obtenerSesion("tipo_us")=="admin"){
+            require_once("../Modelo/class.amigos.php");
+            $amigos = new Amigo();
+            $fullAmigos->allAmigos(obtenerSesion("id_us"));
             header("Location: ../Vista/iniAmigAdmin.php");
+
         }
-        else{
+        elseif(obtenerSesion("tipo_us")=="usuario"){
+            require_once("../Modelo/class.amigos.php");
+            $amigos = new Amigo();
+            $fullAmigos->allAmigos(obtenerSesion("id_us"));
             header("Location: ../Vista/iniAmig.php");
         }
     }
