@@ -23,7 +23,17 @@ require_once('../Vista/cabecera.html');
 
     <main>
     <h2>Lista de Amigos</h2>
-    <?php $amigos->mostrarTablaAmigos($_SESSION['usuario']); ?>
+    
+        <!-- Añade un botón para ordenar la lista de amigos por nombre, en
+    orden alfabético, y otro para ordenar la lista por fecha de nacimiento, de
+    menor a mayor. Una vez mostrada la lista ordenada, se podrá volver a
+    pulsar el botón, lo que hará que se ordene de forma inversa.
+     -->
+    <form action="../Controlador/index.php" method="POST">
+        <input type="hidden" name="accion" value="ordenar">
+        <input type="submit" value="Ordenar por Nombre" value="orNom">
+        <input type="submit" value="Ordenar por Fecha de Nacimiento" value="orNac">
+    </form>
 
     </main>
 

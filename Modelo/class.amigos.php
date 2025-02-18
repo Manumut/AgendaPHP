@@ -8,6 +8,7 @@
         public $nombre;
         public $apellidos;
         public $nacimiento;
+        public $puntuacion;
         
         public function __construct(){
             $this->con=new db();
@@ -16,6 +17,8 @@
             $this->nombre;
             $this->apellidos;
             $this->nacimiento;   
+            $this->puntuacion;   
+
         }
 
         
@@ -113,6 +116,65 @@
             $consulta->close();
             return $amigos;
         }
+
+
+
+        //funcion para para sacar los nombres de los amigos por orden alfabetico
+        public function ordenAmigo(){
+            $sentencia ="SELECT nombre FROM amigos ORDER BY nombre;"; //esto devuelve los nombres ordenados por orden alfabetico de nombres
+            $consulta = $this->con->getConexion()->prepare($sentencia);
+            $consulta->bind_param('s',$nombre );
+            $consulta->bind_result($nombre);
+            $consulta->execute();
+            echo "ordenAMIGO";
+            $consulta->close();
+        }
         
 
+        //funcion para para sacar las fechas de los amigos por orden ascendente
+        public function ordenFech(){
+            $sentencia ="SELECT nacimiento FROM amigos ORDER BY nacimiento ASC;"; //esto devuelve las fechas ordenados por orden ascendente
+            $consulta = $this->con->getConexion()->prepare($sentencia);
+            $consulta->bind_param('s',$nacimiento );
+            $consulta->bind_result($nacimiento);
+            $consulta->execute();
+            echo "ordenfECH";
+            $consulta->close();
+        }
+
+
+         // Tengo q sacar todas las valoraciones, q salen en un array, y en otra funcion sacar la cantidad de valoraciones que hay y asi poder sacar la media luego, aunq ns como
+
+        public function sacarValoracion(){
+            $sentencia = "SELECT avg(valoracion), id_pres, amigo, usuario FROM prestamos, amigos WHERE id_am = prestamos.amigo AND valoracion != null AND devuelto = 1;";
+
+            $consulta = $this->con->getConexion()->prepare($sentencia);
+            $consulta->bind_param("i", $usuario );
+            $consulta->bind_result($valoracion);
+            $consulta->execute();
+
+            $med=[];
+            while($consulta->fetch()){
+                $med[$id_pres]=[$valoracion];
+            }
+
+            $consulta->close();
+            return $med;
+        }
+
+        public function valida2Usu(){
+            $sentencia = "SELECT verificado FROM amigos WHERE verificado = 1";
+            $consulta=$this->con->getConection()->prepare($sentencia);
+            $consulta->bind_result($verificado);
+            $consulta->execute();
+
+            $usuarios=[];
+            while($consulta->fetch()){
+                $usuarios[$id_amigo]=[$verificado];
+            }
+
+            $consulta->close();
+            return $usuarios;
+        }
+        
     }

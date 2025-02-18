@@ -195,5 +195,63 @@
             require_once("../Modelo/class.juegos.php");
             $juegos = new Juego();
         }
-    
+
+
+        function ordenar(){
+            require_once("../Modelo/class.sesiones.php");
+            iniciarSesion();
+            
+            require_once("../Modelo/class.amigos.php");
+            $amigos = new Amigo();
+
+            if(obtenerSesion("tipo_us")=="usuario"){
+                if (isset($_POST["orNom"])){
+                    ordenAmigo();
+                    echo "ordenAMIGO";
+                }
+                elseif (isset($_POST["orNac"])){
+                    ordenFech();
+                    echo "ordenfECH";
+
+                }
+            }
+        }
+
+        // Añado la valoracion a la funcion valorar para que la guarde en la bd
+    function valorPrest(int $val){
+        require_once("../Modelo/class.sesiones.php");
+            iniciarSesion();
+
+        require_once("../Modelo/clas.prestamos.php");
+        $prestamos = new Prestamo();
+        if($val >= 0 && $val <= 5){
+            valorar($val);
+        }
+    }
+
+    function sumaValoracion(){
+        require_once("../Modelo/class.sesiones.php");
+            iniciarSesion();
+
+        require_once("../Modelo/class.amigos.php");
+        $amigos = new Amigos();
+
+        sacarValoracion();
+
+
+
+    }
+
+    function mostrarValida2(){
+        require_once("../Modelo/class.sesiones.php");
+            iniciarSesion();
+        
+        require_once("../Modelo/class.amigos.php");
+            $amigos = new Amigos();
+
+            if(obtenerSesion("tipo_us")=="usuario"){
+                valida2Usu();
+            }
+
+    }
        

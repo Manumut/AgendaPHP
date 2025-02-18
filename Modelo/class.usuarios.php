@@ -30,7 +30,7 @@
         // obtener todos los usuarios 
         public function obtenerUsuarios(){
             $sentencia="SELECT id_usu,nombre,pasword FROM usuarios;";
-            $consulta=$this->conn->getConection()->prepare($sentencia);
+            $consulta=$this->con->getConection()->prepare($sentencia);
             $consulta->bind_result($id,$nombre,$contrasenia);
             $consulta->execute();
 

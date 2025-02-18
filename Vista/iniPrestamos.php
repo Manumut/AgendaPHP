@@ -17,6 +17,10 @@ require_once("../Vista/cabecera.html");
         </div>
     </header>
 
+    <form action="../Controlador/index.php" method="POST">
+        <input type="hidden" name="accion" value="verificao">
+        <input type="number" name="" id="">
+    </form>
 
 
 

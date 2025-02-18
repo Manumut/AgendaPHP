@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-02-2025 a las 14:01:31
+-- Tiempo de generación: 18-02-2025 a las 12:50:54
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -32,7 +32,9 @@ CREATE TABLE `amigos` (
   `nombre` varchar(50) NOT NULL,
   `apellidos` varchar(50) NOT NULL,
   `nacimiento` date NOT NULL,
-  `id_usuario` bigint(20) UNSIGNED NOT NULL
+  `id_usuario` bigint(20) UNSIGNED NOT NULL,
+  `puntuacion` decimal(3,2) NOT NULL,
+  `verificado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -62,7 +64,8 @@ CREATE TABLE `prestamos` (
   `amigo` bigint(20) UNSIGNED NOT NULL,
   `juego` bigint(20) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
-  `devuelto` tinyint(1) NOT NULL
+  `devuelto` tinyint(1) NOT NULL,
+  `valoracion` decimal(3,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------

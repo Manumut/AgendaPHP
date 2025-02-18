@@ -9,7 +9,8 @@
         private $juego;
         private $fecha;
         private $devuelto;
-        
+        private $valoracion;
+
         public function __construct() {
             $this->con = new db();
             $this->id_pres;
@@ -18,6 +19,7 @@
             $this->juego;
             $this->fecha;
             $this->devuelto;
+            $this->valoracion;
         }
 
         //Obtener prestamos por el id del usu
@@ -50,8 +52,8 @@
             
             $consulta = $this->con->getConexion()->prepare($sentencia);
             $busque =$busqueda. "%";
-            $consulta->bind_param("is", $id_usuario, $busque, $busque );
-            $consulta->bind_result($id_prestamo, $amigo, $titulo, $fecha_prestamo, $foto, $devuelto);
+            $consulta->bind_param("is", $usuario, $busque );
+            $consulta->bind_result($id_pres, $amigo, $titulo, $fecha_prestamo, $foto, $devuelto);
             $consulta->execute();
             $busc=[];
             while($consulta->fetch()){
@@ -61,5 +63,21 @@
             $consulta->close();
             return $busc;
         }
+
+        // Una fucnion para updatear la valoracion a cada prestamo
+        public function valorar(int $val){
+            $sentencia = "UPDATE prestamos SET valoracion = ? ;";
+            $consulta = $this->con->getConexion()->prepare($sentencia);
+            $consulta->bind_param('i',$valoracion);
+            $consulta->execute();
+            $consulta->close();
+        }
+
+          
+
+        
+        
+
+     
     }
             
