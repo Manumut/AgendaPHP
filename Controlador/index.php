@@ -196,38 +196,4 @@
             $juegos = new Juego();
         }
     
-        function guardaImg(){
-            require_once("../Modelo/class.sesiones.php");
-            iniciarSesion();
-            
-            //PARA LA FOTO, crear carpeta con el nombre del usuario si todavía no existe y meter la imagen, luego coger esa ruta para meterla en la bd
-        require_once("../Modelo/cookies_sesiones.php");
-        start_session();
-
-        
-        $ruta="../img/".$_SESSION["usu"]."/";
-        if(!file_exists($ruta)){
-            mkdir($ruta,0777,true); //El tercer parámetro "true" permite crear directorios recursivamente, es decir, se crea tanto img cómo la carpeta con el nombre del usuario
-        }
-
-        $nomOrig=$_FILES["img"]["name"]; //El nombre original de la imagen
-
-        //COMO NO HAY QUE RENOMBRAR EL ARCHIVO, LO COMENTADO NO HACE FALTA, EN CASO DE QUE HUBIERA QUE RENOMBRARLO, SE HARÍA LO SIGUIENTE:
-        //Si el nuevo nombre no tiene la extensión, hay que añadirsela para que el archivo se pueda ver correctamente
-        // $extension;
-        // if(!preg_match("'^[a-zA-Z0-9]+\.[a-z]+$'",$valorInput)){//Si el nuevo nombre no va seguido de . y la extensión, se le añade la extensión del nombre original
-        //     //Se concatena el nombre nuevo que se le va a poner a la imagen con la extensión del nombre original
-
-        //     $pos = strrpos($nomOrig, '.'); // Encuentra la posición del último punto dentro del nombre original
-        //     $extension=substr($nomOrig,$pos);//substr devuelve una parte del string a partir de una posición, en este caso devuelve una cadena a partir de la posición del . en el nombre original
-        //     $valorInput=$valorInput.$extension;//Se concatena el nuevo nombre con la extensión
-        // }
-
-        $origen=$_FILES["img"]["tmp_name"];
-        $destino=$ruta.$nomOrig; //Se concatena la ruta donde queremos guardar la imagen con el nuevo nombre (En este caso es el nombre original, no uno nuevo)
-
-        //Se mueve la imagen a la carpeta
-        move_uploaded_file($origen,$destino);
-
-        return $destino;
-        }
+       

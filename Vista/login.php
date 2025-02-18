@@ -13,7 +13,9 @@ require_once('cabecera.html');
     <section>
         <div class="form-ini">
             <h2>Inicia Sesión</h2>
-            <form  action="../Controlador/index.php?accion=inicio" method="POST">
+            <form action="../Controlador/index.php" method="POST">
+                <input type="hidden" name="accion" value="inicio">
+
                 <label for="user">Nombre</label>
                 <input type="text" name="user" value=<?php if(isset($_COOKIE["usuario"])) echo $_COOKIE["usuario"]; ?> > <!--En este input se almacena el nombre introducido en la cookie    -->
                 <br>
@@ -30,6 +32,7 @@ require_once('cabecera.html');
             </form>
         </div>
     </section>
+
 
     
     
