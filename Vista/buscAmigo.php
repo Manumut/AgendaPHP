@@ -21,6 +21,10 @@ require_once("../Vista/cabecera.html");
             <form action="../Controlador/index.php" method="POST">
                 <label for="busqueda">Nombre o Apellidos</label>
                 <input type="text" id="busqueda" name="busqueda" required>
+                
+                <!-- Ocultar el tipo de búsqueda -->
+                <input type="hidden" name="busqued" value="amigos">
+
                 <button type="submit">Buscar</button>
             </form>
 

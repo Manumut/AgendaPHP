@@ -13,16 +13,16 @@ require_once('cabecera.html');
     <section>
         <div class="form-ini">
             <h2>Inicia Sesión</h2>
-            <form  action="../Controlador/index.php" method="POST">
+            <form  action="../Controlador/index.php?accion=inicio" method="POST">
                 <label for="user">Nombre</label>
-                <input type="text" name="user"alue=<?php if(isset($_COOKIE["usuario"])) echo $_COOKIE["usuario"]; ?> > <!--En este input se almacena el nombre introducido en la cookie    -->
+                <input type="text" name="user" value=<?php if(isset($_COOKIE["usuario"])) echo $_COOKIE["usuario"]; ?> > <!--En este input se almacena el nombre introducido en la cookie    -->
                 <br>
                 <label for="psw">Contraseña</label>
                 <input type="password" name="psw">
                 <br>
                 
                 <label >
-                    <input type="checkbox" name="recuerdame" <?php if (isset($_COOKIE["user"])) echo "checked";?> >
+                    <input type="checkbox" name="recuerdame" <?php if (isset($_COOKIE["usuario"])) echo "checked";?> >
                     Recuerdame
                 </label>
                 <br>
