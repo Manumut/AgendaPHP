@@ -251,6 +251,7 @@
 
             if(obtenerSesion("tipo_us")=="usuario"){
                 valida2Usu();
+                
             }
 
     }
